@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react'
+import SliderIndicator from "./SliderIndicator";
+import sample1 from "./images/Group 69.png";
+import sample2 from "./images/image (5).png";
+import sample3 from "./images/image (6).png";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+let sliderTimeout;
+const sampleData = [sample1, sample2, sample3];
+
+const App = ({ sliderData=sampleData }) => {
+    const [sliderIndex, setSliderIndex] = useState(0);
+    const setSlideIndexAuto = () => {
+        if(sliderIndex < sliderData.length-1) {
+            setSliderIndex((sliderIndex + 1))
+
+        }else {
+            setSliderIndex(0);
+        }
+
+    };
+
+    useEffect( () => {
+        if(sliderTimeout){
+            clearTimeout(sliderTimeout);
+        }
+
+        sliderTimeout = setInterval(() => {
+            sliderTimeout = null;
+            setSlideIndexAuto();
+        }, 3000);
+
+    }, [setSlideIndexAuto]);
+    return(
+        <div className="slider-wrapper">
+            <div className="slider-indicator-wrapper">
+                {sliderData.map((content, i) => (
+                    <SliderIndicator active={sliderIndex === i} key={i}/>
+                ))
+                }
+            </div>
+            <div className="slider-main">
+                {sliderData[sliderIndex]}
+            </div>
+        </div>
+    )
+};
 
 export default App;
+
+
