@@ -9,19 +9,18 @@ const sampleData = [sample1, sample2, sample3];
 
 const App = ({ sliderData=sampleData }) => {
     const [sliderIndex, setSliderIndex] = useState(0);
-    const setSlideIndexAuto = () => {
+    const setSlideIndexAuto = useCallback(() => {
         if(sliderIndex < sliderData.length-1) {
             setSliderIndex((sliderIndex + 1))
-
         }else {
             setSliderIndex(0);
         }
 
-    };
+    }, []);
 
     useEffect( () => {
         if(sliderTimeout){
-            clearTimeout(sliderTimeout);
+            clearInterval(sliderTimeout);
         }
 
         sliderTimeout = setInterval(() => {
