@@ -75,6 +75,7 @@
     ]
   },
   "dependencies": {
-    "babel-loader": "^8.1.0"
+    "babel-loader": "^8.1.0",
+    "node-sass": "^4.14.1"
   }
 }
